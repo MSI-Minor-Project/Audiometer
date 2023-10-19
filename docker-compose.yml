@@ -1,0 +1,20 @@
+version: '2.4'
+
+services:
+  react_native_app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        - NODE_ENV=development
+    environment:
+    - NODE_ENV=development
+    tty: true
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/audiometer_app
+      - ./package.json:/audiometer_app/package.json
+      - ./package-lock.json:/audiometer_app/package-lock.json
+    healthcheck:
+      disable: true
