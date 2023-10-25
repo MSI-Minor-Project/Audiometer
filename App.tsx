@@ -3,6 +3,39 @@ import { StyleSheet, Text, View } from 'react-native';
 import { Audio } from "expo-av";
 import { Alert, Button } from 'react-native';
 import { useEffect, useState } from 'react';
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
+import { PaperProvider } from 'react-native-paper';
+import { Dimensions } from "react-native";
+import HomeScreen from './screens/HomeScreen';
+import LoginScreen from './screens/LoginScreen';
+
+const screenWidth = Dimensions.get("window").width;
+
+const Tab = createBottomTabNavigator();
+
+const data = {
+  labels: ["January", "February", "March", "April", "May", "June"],
+  datasets: [
+    {
+      data: [20, 45, 28, 80, 99, 43],
+      color: (opacity = 1) => `rgba(134, 65, 244, ${opacity})`, // optional
+      strokeWidth: 2 // optional
+    }
+  ],
+  legend: ["Rainy Days"] // optional
+};
+
+const chartConfig = {
+  backgroundGradientFrom: "#1E2923",
+  backgroundGradientFromOpacity: 0,
+  backgroundGradientTo: "#08130D",
+  backgroundGradientToOpacity: 0,
+  color: (opacity = 1) => `rgba(0, 0, 0, ${opacity})`,
+  strokeWidth: 2, // optional, default 3
+  barPercentage: 0.5,
+  useShadowColorFromDataset: false // optional
+};
 
 export default function App() {
 
@@ -60,14 +93,16 @@ export default function App() {
   }, [sound]);
 
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <Button title='Play Sound' onPress={playSound} />
-      <Button title='Stop Sound' onPress={stopSound} />
-      <Button title='Increase Pitch' onPress={increasePitch} />
-      <Button title='Pan Left Ear' onPress={panLeftEar} />
-      <StatusBar style="auto" />
-    </View>
+    <PaperProvider>
+      <NavigationContainer>
+        <Tab.Navigator>
+          <Tab.Screen name="Home" component={HomeScreen} />
+          <Tab.Screen name="Login" component={LoginScreen} options={{
+            headerShown: false
+          }} />
+        </Tab.Navigator>
+      </NavigationContainer>
+    </PaperProvider>
   );
 }
 
