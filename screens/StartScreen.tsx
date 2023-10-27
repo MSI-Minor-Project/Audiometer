@@ -6,12 +6,21 @@ import { useNavigation } from '@react-navigation/native'
 import { TouchableOpacity } from 'react-native-gesture-handler'
 import { RootStack } from '../App'
 import { StackNavigationProp } from '@react-navigation/stack'
-
+import { signOut } from 'firebase/auth'
+import { auth } from '../firebase'
 type StackProps = StackNavigationProp<RootStack, "Start">;
 
 export default function StartScreen() {
 
     const navigation = useNavigation<StackProps>();
+
+    auth.onAuthStateChanged((user) => {
+        if(user) {
+            console.log('user signed in')
+        } else {
+            console.log('user signed out')
+        }
+    })
 
     return (
         <SafeAreaView>
@@ -22,6 +31,7 @@ export default function StartScreen() {
                 padding: 20,
                 rowGap: 10
             }}>
+                <Text>{auth.currentUser?.email}</Text>
                 <TouchableOpacity onPress={() => {
                     navigation.navigate("Register");
                 }}>
@@ -37,6 +47,11 @@ export default function StartScreen() {
                 <TouchableOpacity>
                     <Button mode="outlined">
                         <Text className='text-lg'>Continue as guest</Text>
+                    </Button>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={async () => { await signOut(auth) }}>
+                    <Button mode="outlined">
+                        <Text className='text-lg'>Sign out</Text>
                     </Button>
                 </TouchableOpacity>
             </View>

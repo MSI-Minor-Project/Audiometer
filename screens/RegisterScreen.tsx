@@ -1,9 +1,15 @@
-import { View, TouchableOpacity } from 'react-native'
+import { View, TouchableOpacity, ActivityIndicator } from 'react-native'
 import React, { useState } from 'react'
 import { SafeAreaView } from 'react-native-safe-area-context'
-import { Button, TextInput } from 'react-native-paper'
+import { Button, Modal, Portal, TextInput } from 'react-native-paper'
 import { useNavigation } from '@react-navigation/native'
 import { Text } from "react-native-paper"
+import { RootStack } from '../App'
+import { StackNavigationProp } from '@react-navigation/stack'
+import { register } from '../utils/auth'
+import { FirebaseError } from 'firebase/app'
+
+type StackProps = StackNavigationProp<RootStack, "Register">;
 
 export default function RegisterScreen() {
 
@@ -12,7 +18,34 @@ export default function RegisterScreen() {
     const [lastname, setLastname] = useState("");
     const [password, setPassword] = useState("");
     const [secureTextEntry, setSecureTextEntry] = useState(true);
-    const navigation = useNavigation();
+    const navigation = useNavigation<StackProps>();
+    const [loading, setLoading] = useState(false);
+    const [visible, setVisible] = React.useState(false);
+    const showModal = () => setVisible(true);
+    const hideModal = () => setVisible(false);
+    const containerStyle = { backgroundColor: 'white', padding: 20 };
+
+    const handleRegistration = async () => {
+        try {
+            setLoading(true);
+            const user = await register(email, password);
+            if (user) {
+                const id = user.uid;
+                // save the user data in the postgresQL database
+                // navigate to the home screen
+                // set loading to false
+                setLoading(false);
+            }
+        } catch (error: any) {
+            if (error.code === "auth/email-already-in-use") {
+                alert("Email already in use");
+            } else if (error.code === "auth/weak-password") {
+                alert("Password must be at least 6 characters");
+            } else {
+                alert("Signup error : " + error.message);
+            }
+        }
+    }
 
     return (
         <View style={{
@@ -49,8 +82,8 @@ export default function RegisterScreen() {
                     }} />
                 }
             />
-            <TouchableOpacity>
-                <Button mode="contained-tonal">
+            <TouchableOpacity onPress={handleRegistration}>
+                <Button mode="contained-tonal" loading={loading}>
                     Register
                 </Button>
             </TouchableOpacity>
