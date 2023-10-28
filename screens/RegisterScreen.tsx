@@ -8,6 +8,7 @@ import { RootStack } from '../App'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { register } from '../utils/auth'
 import { FirebaseError } from 'firebase/app'
+import { trpc } from '../trpc/client'
 
 type StackProps = StackNavigationProp<RootStack, "Register">;
 
@@ -25,6 +26,8 @@ export default function RegisterScreen() {
     const hideModal = () => setVisible(false);
     const containerStyle = { backgroundColor: 'white', padding: 20 };
 
+    const createUser = trpc.createUser.mutate;
+
     const handleRegistration = async () => {
         try {
             setLoading(true);
@@ -32,6 +35,11 @@ export default function RegisterScreen() {
             if (user) {
                 const id = user.uid;
                 // save the user data in the postgresQL database
+                await createUser({
+                    email,
+                    name: firstname + " " + lastname,
+                    uid: id,
+                });
                 // navigate to the home screen
                 // set loading to false
                 setLoading(false);
