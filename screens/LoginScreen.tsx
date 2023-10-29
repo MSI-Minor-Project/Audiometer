@@ -9,7 +9,7 @@ import { signInWithCredential, signInWithEmailAndPassword } from 'firebase/auth'
 import { auth } from '../firebase';
 import { emailVerification } from '../utils/auth';
 
-type StackProps = StackNavigationProp<RootStack, "Login">;
+type StackProps = StackNavigationProp<RootStack, "App">;
 
 export default function LoginScreen() {
 
@@ -36,6 +36,11 @@ export default function LoginScreen() {
                     await emailVerification();
                     await auth.signOut();
                     setIsLoading(false);
+                } else {
+                    setIsLoading(false);
+                    navigation.navigate("App", {
+                        screen: "Home",
+                    });
                 }
             }
         } catch (error: any) {

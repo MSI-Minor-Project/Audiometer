@@ -14,14 +14,6 @@ export default function StartScreen() {
 
     const navigation = useNavigation<StackProps>();
 
-    auth.onAuthStateChanged((user) => {
-        if(user) {
-            console.log('user signed in')
-        } else {
-            console.log('user signed out')
-        }
-    })
-
     return (
         <SafeAreaView>
             <View style={{
