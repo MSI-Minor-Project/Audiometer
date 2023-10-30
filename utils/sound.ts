@@ -8,7 +8,7 @@ const playSound = async (Sound:Audio.Sound) => {
       shouldPlay: true,
       isLooping: true,
       audioPan: -1.0,
-      androidImplementation: 'MediaPlayer'
+      androidImplementation: 'MediaPlayer',
     });
     // setSound(sound);
 
