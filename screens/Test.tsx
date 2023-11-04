@@ -1,17 +1,33 @@
 import { View, Text, TouchableOpacity } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { StatusBar } from 'expo-status-bar'
-import { Button } from 'react-native-paper'
-// import { useIsHeadphonesConnected } from 'react-native-device-info';
-
+import { Button, Modal, Portal } from 'react-native-paper'
+import { useIsHeadphonesConnected } from 'react-native-device-info';
+import { Snackbar } from 'react-native-paper';
 
 export default function Test() {
 
-    // const { loading, result } = useIsHeadphonesConnected(); // { loading: true, result: false}
+    const { loading, result } = useIsHeadphonesConnected(); // { loading: true, result: false}
 
-    // if(loading) {
-    //     console.log('headphones loading')
-    // }
+    const [visible, setVisible] = React.useState(false);
+
+    const onToggleSnackBar = () => setVisible(!visible);
+
+    const onDismissSnackBar = () => setVisible(false);
+
+    if (loading) {
+        console.log('headphones loading')
+    }
+
+    if (result) {
+        console.log('headphones connected')
+    }
+
+    const startTest = () => {
+        if (!result) {
+            onToggleSnackBar()
+        }
+    }
 
     return (
         <View>
@@ -47,10 +63,27 @@ export default function Test() {
                     alignSelf: "center",
                     marginTop: 20,
                     marginBottom: 20
-                }} onPress={() => { }}>
+                }} onPress={startTest}>
                     <Text className='text-purple-600'>Start the test</Text>
                 </Button>
             </View>
+            <Portal>
+                <Modal visible={visible} onDismiss={onDismissSnackBar} contentContainerStyle={{
+                    width: "75%",
+                    height: "30%",
+                    backgroundColor: "white",
+                    borderRadius: 10,
+                    padding: 20,
+                    marginLeft: "auto",
+                    marginRight: "auto",
+                }}>
+                    <Text className='text-xl font-bold'>Warning</Text>
+                    <Text className='text-lg'>
+                        To make the application fully functional, plug in the headset or headphones.
+                        Using application without headset or headphones significantly limits its functions
+                    </Text>
+                </Modal>
+            </Portal>
             <StatusBar style="auto" />
         </View>
     )
