@@ -26,8 +26,23 @@
       "versionCode": 1,
       "permissions": [
         "android.permission.RECORD_AUDIO",
-        "android.permission.MODIFY_AUDIO_SETTINGS"
-      ]
+        "android.permission.MODIFY_AUDIO_SETTINGS",
+        "android.permission.BLUETOOTH",
+        "android.permission.BLUETOOTH_ADMIN",
+        "android.permission.ACCESS_FINE_LOCATION",
+        [
+          "@config-plugins/react-native-ble-plx",
+          {
+            "isBackgroundEnabled": true,
+            "modes": [
+              "peripheral",
+              "central"
+            ],
+            "bluetoothAlwaysPermission": "Allow $(PRODUCT_NAME) to connect to bluetooth devices"
+          }
+        ]
+      ],
+      "hardware": {}
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -38,7 +53,8 @@
         {
           "microphonePermission": "Allow $(PRODUCT_NAME) to access your microphone."
         }
-      ]
+      ],
+      "@config-plugins/react-native-ble-plx"
     ],
     "extra": {
       "eas": {
