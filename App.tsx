@@ -17,6 +17,7 @@ import Settings from './screens/Settings';
 import { User } from 'firebase/auth';
 import Test from './screens/Test';
 import "expo-dev-client";
+import Result from './screens/Result';
 
 export type RootStack = {
   Start: undefined;
@@ -27,6 +28,7 @@ export type RootStack = {
   };
   Settings: undefined;
   Test: undefined;
+  Result: undefined;
 }
 
 const Stack = createStackNavigator<RootStack>();
@@ -86,6 +88,11 @@ export default function App() {
                 headerShown: true,
                 presentation: "modal",
                 title: "Hearing Test"
+              }} />
+              <Stack.Screen name="Result" component={Result} options={{
+                headerShown: true,
+                title: "Result",
+                presentation: "modal"
               }} />
             </>
           )}
