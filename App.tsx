@@ -18,6 +18,7 @@ import { User } from 'firebase/auth';
 import Test from './screens/Test';
 import "expo-dev-client";
 import Result from './screens/Result';
+import Tests from './screens/Tests';
 
 export type RootStack = {
   Start: undefined;
@@ -29,6 +30,10 @@ export type RootStack = {
   Settings: undefined;
   Test: undefined;
   Result: undefined;
+  TestResult: {
+    testId: string,
+    userId: string
+  }
 }
 
 const Stack = createStackNavigator<RootStack>();
@@ -42,6 +47,12 @@ const TabNavigatorComponent = () => {
       headerBackground: () => <View style={{ backgroundColor: "#746CC0", height: "100%" }} />,
       headerTintColor: "white",
       headerTitle: () => <Text style={{ color: "white", fontSize: 20, fontWeight: "bold" }}>Petralex hearing test</Text>
+    }} />
+    <Tab.Screen name="Tests" component={Tests} options={{
+      title: "Tests",
+      headerTitleAlign: "center",
+      headerBackground: () => <View style={{ backgroundColor: "#746CC0", height: "100%" }} />,
+      headerTintColor: "white",
     }} />
   </Tab.Navigator>
 }
@@ -92,6 +103,11 @@ export default function App() {
               <Stack.Screen name="Result" component={Result} options={{
                 headerShown: true,
                 title: "Result",
+                presentation: "modal"
+              }} />
+              <Stack.Screen name="TestResult" component={Tests} options={{
+                headerShown: true,
+                title: "Test Result",
                 presentation: "modal"
               }} />
             </>
