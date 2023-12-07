@@ -26,7 +26,14 @@ export default function RegisterScreen() {
     const hideModal = () => setVisible(false);
     const containerStyle = { backgroundColor: 'white', padding: 20 };
 
-    const createUser = trpc.createUser.mutate;
+    const { mutate: createUser } = trpc.createUser.useMutation({
+        onSuccess(data, variables, context) {
+            console.log('user created in the database');
+        },
+        onError(error, variables, context) {
+            console.log('Error occured while creating user in the database = ' + error);
+        },
+    });
 
     const handleRegistration = async () => {
         try {
@@ -35,7 +42,7 @@ export default function RegisterScreen() {
             if (user) {
                 const id = user.uid;
                 // save the user data in the postgresQL database
-                await createUser({
+                createUser({
                     email,
                     name: firstname + " " + lastname,
                     uid: id,

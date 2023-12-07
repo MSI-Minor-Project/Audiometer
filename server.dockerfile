@@ -16,11 +16,12 @@ RUN npm install typescript -g
 RUN npx tsc --init
 RUN npx prisma generate
 
-RUN npm install @trpc/server @trpc/client zod
+RUN npm install @trpc/server @trpc/client zod @trpc/react-query
 
 COPY ./trpc /server/trpc
 COPY ./.env /server/.env
 
 EXPOSE 3000
+EXPOSE 5555
 
 CMD ["npx", "ts-node", "trpc/server/index.ts"]

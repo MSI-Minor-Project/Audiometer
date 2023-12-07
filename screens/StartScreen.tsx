@@ -8,6 +8,7 @@ import { RootStack } from '../App'
 import { StackNavigationProp } from '@react-navigation/stack'
 import { signOut } from 'firebase/auth'
 import { auth } from '../firebase'
+import { StatusBar } from 'expo-status-bar'
 type StackProps = StackNavigationProp<RootStack, "Start">;
 
 export default function StartScreen() {
@@ -47,6 +48,7 @@ export default function StartScreen() {
                     </Button>
                 </TouchableOpacity>
             </View>
+            <StatusBar style='dark' />
         </SafeAreaView>
     )
 }

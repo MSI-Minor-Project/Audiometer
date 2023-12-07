@@ -11,7 +11,7 @@ datasource db {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
+  id        String   @id @default(uuid())
   email     String   @unique
   name      String?
   createdAt DateTime @default(now())
@@ -21,11 +21,22 @@ model User {
 }
 
 model Test {
-  id        Int      @id @default(autoincrement())
+  id        String    @id @unique
   name      String?
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  uid       String   @unique
-  url       String   @unique
-  user      User     @relation(fields: [id], references: [id])
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  uid       String?   @unique
+  url       String    @unique
+  user      User      @relation(fields: [id], references: [id])
+  leftEar   EarData[]
+  rightEar  EarData[] @relation("rightEar")
+}
+
+model EarData {
+  frequency Int
+  pitch     Int
+  Test      Test?  @relation(fields: [testId], references: [id])
+  testId    String @unique
+  testId2   String @unique
+  Test2     Test?  @relation("rightEar", fields: [testId2], references: [id])
 }
