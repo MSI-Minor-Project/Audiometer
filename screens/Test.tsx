@@ -14,9 +14,9 @@ import { auth } from '../firebase';
 import { RootStack } from '../App';
 import { useNavigation } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { Feather } from '@expo/vector-icons';
 
 type StackProps = StackNavigationProp<RootStack, "Test">;
-
 
 const m = {
     0: require("../audio/100hz.mp3"),
@@ -402,59 +402,50 @@ export default function Test() {
 
     return (
         <View className='h-full'>
-            <View className='flex flex-row items-center gap-x-5 mx-auto'>
-                <View className='bg-[#5E32B3] w-6 h-6 rounded-full text-white' style={{
-                    backgroundColor: counter === 1 ? "green" : "#5E32B3",
-                }}>
-                    <Text className='text-center text-white'>1</Text>
-                </View>
-                <View className='bg-[#5E32B3] w-6 h-6 rounded-full text-white' style={{
-                    backgroundColor: counter === 2 ? "green" : "#5E32B3"
-                }}>
-                    <Text className='text-center text-white'>2</Text>
-                </View>
-                <View className='bg-[#5E32B3] w-6 h-6 rounded-full text-white' style={{
-                    backgroundColor: counter === 3 ? "green" : "#5E32B3"
-                }}>
-                    <Text className='text-center text-white'>3</Text>
-                </View>
-                <View className='bg-[#5E32B3] w-6 h-6 rounded-full text-white' style={{
-                    backgroundColor: counter === 4 ? "green" : "#5E32B3"
-                }}>
-                    <Text className='text-center text-white'>4</Text>
-                </View>
-                <View className='bg-[#5E32B3] w-6 h-6 rounded-full text-white' style={{
-                    backgroundColor: counter === 5 ? "green" : "#5E32B3"
-                }}>
-                    <Text className='text-center text-white'>5</Text>
-                </View>
-                <View className='bg-[#5E32B3] w-6 h-6 rounded-full text-white' style={{
-                    backgroundColor: counter === 6 ? "green" : "#5E32B3"
-                }}>
-                    <Text className='text-center text-white'>6</Text>
-                </View>
-                <View className='bg-[#5E32B3] w-6 h-6 rounded-full text-white' style={{
-                    backgroundColor: counter === 7 ? "green" : "#5E32B3"
-                }}>
-                    <Text className='text-center text-white'>7</Text>
-                </View>
+            <View className='flex flex-row items-center justify-center h-3/4'>
+                <Feather name="headphones" size={300} color="black" />
             </View>
-            {/* Bottom section */}
-            {!isTestStarted ?
-                <View className='bg-[#5E32B3] rounded-md'>
-                    <Button style={{
-                        backgroundColor: "white",
-                        borderRadius: 10,
-                        width: "90%",
-                        alignSelf: "center",
-                        marginTop: 20,
-                        marginBottom: 20
-                    }} onPress={startTest}>
-                        <Text className='text-purple-600 text-lg'>Start the test</Text>
-                    </Button>
+            <View className='flex flex-col justify-between mt-auto'>
+                <View className='flex flex-row items-center gap-x-5 mx-auto mb-3'>
+                    <View className='bg-[#5E32B3] w-6 h-6 rounded-full text-white' style={{
+                        backgroundColor: counter === 1 ? "green" : "#5E32B3",
+                    }}>
+                        <Text className='text-center text-white'>1</Text>
+                    </View>
+                    <View className='bg-[#5E32B3] w-6 h-6 rounded-full text-white' style={{
+                        backgroundColor: counter === 2 ? "green" : "#5E32B3"
+                    }}>
+                        <Text className='text-center text-white'>2</Text>
+                    </View>
+                    <View className='bg-[#5E32B3] w-6 h-6 rounded-full text-white' style={{
+                        backgroundColor: counter === 3 ? "green" : "#5E32B3"
+                    }}>
+                        <Text className='text-center text-white'>3</Text>
+                    </View>
+                    <View className='bg-[#5E32B3] w-6 h-6 rounded-full text-white' style={{
+                        backgroundColor: counter === 4 ? "green" : "#5E32B3"
+                    }}>
+                        <Text className='text-center text-white'>4</Text>
+                    </View>
+                    <View className='bg-[#5E32B3] w-6 h-6 rounded-full text-white' style={{
+                        backgroundColor: counter === 5 ? "green" : "#5E32B3"
+                    }}>
+                        <Text className='text-center text-white'>5</Text>
+                    </View>
+                    <View className='bg-[#5E32B3] w-6 h-6 rounded-full text-white' style={{
+                        backgroundColor: counter === 6 ? "green" : "#5E32B3"
+                    }}>
+                        <Text className='text-center text-white'>6</Text>
+                    </View>
+                    <View className='bg-[#5E32B3] w-6 h-6 rounded-full text-white' style={{
+                        backgroundColor: counter === 7 ? "green" : "#5E32B3"
+                    }}>
+                        <Text className='text-center text-white'>7</Text>
+                    </View>
                 </View>
-                : <View className='flex flex-col gap-y-5'>
-                    <View className='bg-[#5E32B3] rounded-md'>
+                {/* Bottom section */}
+                {!isTestStarted ?
+                    <View className='bg-[#5E32B3] rounded-md mb-4'>
                         <Button style={{
                             backgroundColor: "white",
                             borderRadius: 10,
@@ -462,36 +453,46 @@ export default function Test() {
                             alignSelf: "center",
                             marginTop: 20,
                             marginBottom: 20
-                        }} onPress={onPressCanhear}>
-                            <Text className='text-green-600 text-lg'>I can year</Text>
+                        }} onPress={startTest}>
+                            <Text className='text-purple-600 text-lg'>Start the test</Text>
                         </Button>
                     </View>
-                    <View className='bg-[#5E32B3] rounded-md'>
-                        <Button style={{
-                            backgroundColor: "white",
-                            borderRadius: 10,
-                            width: "90%",
-                            alignSelf: "center",
-                            marginTop: 20,
-                            marginBottom: 20
-                        }} onPress={onPressCanthear}>
-                            <Text className='text-red-600 text-lg'>I can't year</Text>
-                        </Button>
+                    : <View className='flex flex-col gap-y-5'>
+                        <View className='bg-[#5E32B3] rounded-md'>
+                            <Button style={{
+                                backgroundColor: "white",
+                                borderRadius: 10,
+                                width: "90%",
+                                alignSelf: "center",
+                                marginTop: 20,
+                                marginBottom: 20
+                            }} onPress={onPressCanhear}>
+                                <Text className='text-green-600 text-lg'>I can year</Text>
+                            </Button>
+                        </View>
+                        <View className='bg-[#5E32B3] rounded-md'>
+                            <Button style={{
+                                backgroundColor: "white",
+                                borderRadius: 10,
+                                width: "90%",
+                                alignSelf: "center",
+                                marginTop: 20,
+                                marginBottom: 20
+                            }} onPress={onPressCanthear}>
+                                <Text className='text-red-600 text-lg'>I can't year</Text>
+                            </Button>
+                        </View>
                     </View>
-                </View>
-            }
-            {
+                }
+            </View>
+            {/* {
                 allDevices.map((device) => (
                     <Text>{device.name}</Text>
                 ))
-            }
-            <Button onPress={submitTestData}>
-                <Text>Submit test data</Text>
-            </Button>
-            <Text>Headphones conneted: {headphonesConnectted ? "Yes" : "No"}</Text>
-            <Button>
+            } */}
+            {/* <Button>
                 <Text>Connect to device</Text>
-            </Button>
+            </Button> */}
             <Portal>
                 <Modal visible={visible} onDismiss={onDismissSnackBar} contentContainerStyle={{
                     width: "75%",
