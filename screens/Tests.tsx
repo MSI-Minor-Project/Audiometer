@@ -31,11 +31,6 @@ export default function Tests() {
         </View>
     }
 
-    if (isSuccess) {
-        console.log(data);
-    }
-
-
     function checkAnswerType(d: typeof data) {
         if (d !== undefined) {
             if (d instanceof String) {
@@ -47,6 +42,9 @@ export default function Tests() {
     function getJSX() {
         const d = checkAnswerType(data);
         if (d !== undefined && d !== null && typeof d !== "string") {
+
+            console.log(JSON.stringify(d));
+            
             return (
                 d.map((item, index) => {
                     return (
